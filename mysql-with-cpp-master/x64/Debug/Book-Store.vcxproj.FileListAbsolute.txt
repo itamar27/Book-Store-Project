@@ -1,0 +1,2 @@
+C:\Users\itama\OneDrive\שולחן העבודה\Itamar\GitHub\Books_store-project\mysql-with-cpp-master\x64\Debug\Book-Store.exe
+C:\Users\itama\OneDrive\שולחן העבודה\Itamar\GitHub\Books_store-project\mysql-with-cpp-master\x64\Debug\Book-Store.pdb
