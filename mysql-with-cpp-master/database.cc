@@ -409,7 +409,7 @@ void MySQL::costOfDelivery() {
 	cout << "Please enter delivery number: " << endl;
 	std::getline(cin.ignore(), del_id);
 
-	string query = "select shipping_company, sum(b.weight) as total_weight, sp.pay_rate, sum(b.weight)*pay_rate as price from books b ";
+	string query = "select company, sum(b.weight) as total_weight, sp.pay_rate, sum(b.weight)*pay_rate as price from books b ";
 	query += "inner join books_sale bs using(book_id) inner join delivery d using(delivery_id) inner join shipping_rates sp using(shipping_method) ";
 	query += "where delivery_id = '" + del_id + "' group by delivery_id";
 
@@ -519,7 +519,7 @@ void MySQL::deliveryMadeByXpress() {
 	string query = "select sum(sr.pay_rate * b.weight) as total_pay from books b ";
 	query += "inner join books_sale bs using(book_id) inner join delivery d using(delivery_id) ";
 	query += "inner join shipping_rates sr using(shipping_method) ";
-	query += "where shipping_company = 'Xpress' and month(delivery_date) = '" + month + "' and year(delivery_date) = '" + year + "'";
+	query += "where company = 'Xpress' and month(delivery_date) = '" + month + "' and year(delivery_date) = '" + year + "'";
 
 	getRes(query);
 
@@ -630,8 +630,8 @@ void MySQL::pastYearDealsMoreThanAvg() {
 
 void MySQL::pastYearDeliveryByCompany() {
 
-	string query = "select count(shipping_company) distribution, shipping_company from delivery ";
-	query += "where delivery_date between DATE_SUB(current_date(), INTERVAL 12 MONTH) and current_date() group by(shipping_company) ";
+	string query = "select count(company) distribution, company from delivery inner join shipping_rates using(shipping_method) ";
+	query += "where delivery_date between DATE_SUB(current_date(), INTERVAL 12 MONTH) and current_date() group by(company) ";
 
 	getRes(query);
 	unsigned int numrows = mysql_num_rows(res_set);
